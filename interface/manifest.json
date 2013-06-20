@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+  "name": "SmartAss",
+  "description": "App to remind you to flex your ass.",
+  "version": "0.1",
+  "app": {
+    "background": {
+      "scripts": [
+      	"js/app.js",
+      	"js/socket.io.js",
+      	"js/jquery.min.js",
+      	"js/jquery.jqplot.min.js",
+      	"js/jqplot.donutRenderer.min.js"
+      ]
+    }
+  },
+  "icons": { "16": "img/icon-16.png", "128": "img/icon-128.png" }
+}
