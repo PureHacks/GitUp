@@ -1,0 +1,14 @@
+{
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"*.sublime-project",
+				"*.sublime-workspace",
+				"*.gitignore"
+			],
+			"path": "/D/Work Documents/Nurun/Hackathon/repo/SmartAss/serial-connector"
+		}
+	]
+}
