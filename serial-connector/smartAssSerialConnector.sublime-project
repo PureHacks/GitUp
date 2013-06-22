@@ -8,6 +8,9 @@
 				"*.sublime-workspace",
 				"*.gitignore"
 			],
+			"folder_exclude_patterns": [
+				"node_modules"
+			],
 			"path": "/D/Work Documents/Nurun/Hackathon/repo/SmartAss/serial-connector"
 		}
 	]

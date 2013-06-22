@@ -155,6 +155,38 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "app.js",
+			"settings":
+			{
+				"buffer_size": 4129,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/layout.ejs",
+			"settings":
+			{
+				"buffer_size": 451,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/index.ejs",
+			"settings":
+			{
+				"buffer_size": 43,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 236,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -232,6 +264,9 @@
 	},
 	"file_history":
 	[
+		"/D/Work Documents/Nurun/Hackathon/repo/SmartAss/serial-connector/routes/index.js",
+		"/D/Work Documents/Nurun/Hackathon/repo/SmartAss/serial-connector/package.json",
+		"/D/Work Documents/Nurun/Hackathon/repo/SmartAss/serial-connector/smartAssSerialConnector.sublime-project",
 		"/D/Work Documents/Private Projects/Stylify/repo-service/stylify.sublime-project",
 		"/D/Work Documents/Private Projects/Stylify/repo-service/stylify-crawler.js",
 		"/D/Work Documents/Private Projects/Stylify/Presentation/test phantom js scripts/loadspeed.js",
@@ -356,10 +391,7 @@
 		"/D/Work Documents/Testbed/node-js/appfog/midge/index.html",
 		"/D/Work Documents/Testbed/node-js/appfog/midge/app.js",
 		"/D/Work Documents/Testbed/node-js/appfog/midge/server.js",
-		"/D/Work Documents/Aro/Galway Advertiser/html/includes/styles/main.css",
-		"/D/Work Documents/Aro/Galway Advertiser/html/includes/fonts/fonts.css",
-		"/D/Work Documents/Aro/Galway Advertiser/html/includes/fonts/demo.html",
-		"/D/Work Documents/Freelance for Vinny/email/html/email.html"
+		"/D/Work Documents/Aro/Galway Advertiser/html/includes/styles/main.css"
 	],
 	"find":
 	{
@@ -378,6 +410,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"index",
+			"user",
 			"setStyle",
 			" grid-dl",
 			"dt",
@@ -503,9 +537,7 @@
 			"console",
 			"deleteFile",
 			"screenshotCacheTime",
-			"deleteFile",
-			"analize",
-			"coloursNumPair"
+			"deleteFile"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -569,8 +601,117 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "app.js",
+					"settings":
+					{
+						"buffer_size": 4129,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1543,
+								1553
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 975.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "views/layout.ejs",
+					"settings":
+					{
+						"buffer_size": 451,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								94,
+								94
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "views/index.ejs",
+					"settings":
+					{
+						"buffer_size": 43,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								36,
+								24
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "package.json",
+					"settings":
+					{
+						"buffer_size": 236,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								188,
+								198
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
