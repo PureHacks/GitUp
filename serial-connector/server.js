@@ -1,17 +1,22 @@
 
-/**
- * Module dependencies.
- */
 
+//DEPENDANCIES
 var express = require('express')
   , http = require('http')
   , path = require('path')
-  , socket;
-  
-var app = express();
+  ,	fs = require('fs')
+  , engine = require('ejs-locals')
+  , io = require('socket.io')
+  , serialport = require('serialport')
+  , exec = require('child_process').exec
+  , app = express()
+  ,arduino, socket;
 
+
+//CONFIG
 app.configure(function(){
 	app.use(express.compress());
+	app.set('port', process.env.PORT || 8080);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'ejs');
 	//app.use(express.favicon(path.join(__dirname + '/public/favicon.ico'))); 
@@ -22,9 +27,6 @@ app.configure(function(){
 	app.use(express.static(path.join(__dirname, 'public')));  
 });
 
-var io = require('socket.io').listen(app.listen(process.env.PORT || 3000));
-
-
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
 });
@@ -34,8 +36,16 @@ app.configure('production', function(){
 });
 
 
+//start socket IO
+io = io.listen(app.listen(app.get('port')), function(){
+	console.log("Express server listening on port " + app.get('port'));
+});
+
+
+
+//ROUTS
 app.get('/', function(req, res) {
-  res.render('index', { title: 'The index page!' })
+  res.render('index', { locals : { title: 'Smart Ass' }})
 });
 
 
@@ -46,61 +56,26 @@ io.sockets.on('connection', function (sock){
 
 
 
-//************ ///ARDUINO SERIALPORT LOGIC\\\ ***********************
 
-var serialport = require('serialport')
-  , exec = require('child_process').exec
-  , arduino
-  , arduinoPortIsOpen = false;
+
+
+//SERIAL SEND
 
 
 var onDataFromArduino = function(data) {
 	console.log('Arduino: ' + data);
-
-	//write data to text file
-	// socket.emit('news', { hello: 'KITTY1' });
-}
-
-
-
-/*
-	Utility functions for managing serial connection w/ Arduino
-*/
-
-var SerialPort = require("serialport").SerialPort
-var serialPort = new SerialPort("/dev/tty-usbserial1", {
-	baudrate: 9600,
-	parser: serialport.parsers.readline("\n") 
-}, false);
-
-
-serialPort.on('error', function(err) {
-console.log("oups"); 
-  console.log(err); // THIS SHOULD WORK!
-});
-
-//list what's on the serial port
-serialport.list(function (err, ports) {
-	console.log('list');
-	ports.forEach(function(port) {
-		console.log(port.comName);
-		console.log(port.pnpId);
-		console.log(port.manufacturer);
+	fs.appendFile(__dirname + "/output.txt", "\r\n" + data, { 
+		flags: 'a'
+	}, function (err) {
+		if (err) throw err;
 	});
-});
+	//write data to text file
+	if(socket){
+		socket.emit('arduino', { value:  data});
+	}
+};
 
-serialPort.open(function () {
-  console.log('open');
-  serialPort.on('data', function(data) {
-    console.log('data received: ' + data);
-  });  
-  serialPort.write("ls\n", function(err, results) {
-    console.log('err ' + err);
-    console.log('results ' + results);
-  });  
-});
-
-
+//just for debugging
 var detectArduinoOnOSX = function() {
 	var port;
 	console.log('* attempting to detect arduino on mac osx *');
@@ -113,11 +88,11 @@ var detectArduinoOnOSX = function() {
 		}
 		if (port){
 			attemptConnection(port);
-		}   else{
+		}else{
 			detectArduinoOnRaspberryPI();
 		}
 	});
-}
+};
 
 var detectArduinoOnRaspberryPI = function() {
 	var port;
@@ -138,7 +113,7 @@ var detectArduinoOnRaspberryPI = function() {
 			console.log('* failed to find arduino : please check your connections *');
 		}
 	});
-}
+};
 
 var attemptConnection = function(port) {
 	console.log('* attempting to connect to arduino at :', port, ' *');
@@ -147,10 +122,17 @@ var attemptConnection = function(port) {
 		console.log('* connection to arduino successful ! *');
 		arduinoPortIsOpen = true;
 		arduino.on('data', onDataFromArduino);
-		//arduino.on('close', closedConnection)
-		//setTimeout(doHandShake, 1500);
+		
+
+		
+		arduino.on('close', function(){
+			console.log("* connection to Arduino lost *");
+		})
+		setTimeout(function(){
+			sendDataToArduino('init');
+		}, 1500);
 	});
-}
+};
 
 var sendDataToArduino = function(buffer) {
 // calling write if an arduino is not connected will crash the server! //
@@ -164,9 +146,9 @@ var sendDataToArduino = function(buffer) {
 		});
 		arduino.flush();
 	}
-}
+};
 
 
-//detectArduinoOnOSX();
+detectArduinoOnOSX();
 //detectArduinoOnRaspberryPI();
 

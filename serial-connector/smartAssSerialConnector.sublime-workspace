@@ -156,18 +156,10 @@
 	"buffers":
 	[
 		{
-			"file": "app.js",
+			"file": "server.js",
 			"settings":
 			{
-				"buffer_size": 4129,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "views/layout.ejs",
-			"settings":
-			{
-				"buffer_size": 451,
+				"buffer_size": 3621,
 				"line_ending": "Unix"
 			}
 		},
@@ -175,7 +167,7 @@
 			"file": "views/index.ejs",
 			"settings":
 			{
-				"buffer_size": 43,
+				"buffer_size": 722,
 				"line_ending": "Unix"
 			}
 		},
@@ -183,7 +175,7 @@
 			"file": "package.json",
 			"settings":
 			{
-				"buffer_size": 236,
+				"buffer_size": 253,
 				"line_ending": "Unix"
 			}
 		}
@@ -264,6 +256,7 @@
 	},
 	"file_history":
 	[
+		"/D/Work Documents/Nurun/Hackathon/repo/SmartAss/serial-connector/views/layout.ejs",
 		"/D/Work Documents/Nurun/Hackathon/repo/SmartAss/serial-connector/routes/index.js",
 		"/D/Work Documents/Nurun/Hackathon/repo/SmartAss/serial-connector/package.json",
 		"/D/Work Documents/Nurun/Hackathon/repo/SmartAss/serial-connector/smartAssSerialConnector.sublime-project",
@@ -390,8 +383,7 @@
 		"/D/Work Documents/Testbed/node-js/appfog/midge/README",
 		"/D/Work Documents/Testbed/node-js/appfog/midge/index.html",
 		"/D/Work Documents/Testbed/node-js/appfog/midge/app.js",
-		"/D/Work Documents/Testbed/node-js/appfog/midge/server.js",
-		"/D/Work Documents/Aro/Galway Advertiser/html/includes/styles/main.css"
+		"/D/Work Documents/Testbed/node-js/appfog/midge/server.js"
 	],
 	"find":
 	{
@@ -410,6 +402,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"socket",
+			"onDataFromArduino",
+			"doHandShake",
+			"closedConnection",
+			"attemptConnection",
+			"onDataFromArduino",
+			"onDataFromArduino\n",
 			"index",
 			"user",
 			"setStyle",
@@ -530,14 +529,7 @@
 			"baseTextCol",
 			"bodyBgCol",
 			"coloursBgPreReturn",
-			"coloursPreReturn",
-			"logo",
-			"tempImgPath",
-			"homepage-img-holder",
-			"console",
-			"deleteFile",
-			"screenshotCacheTime",
-			"deleteFile"
+			"coloursPreReturn"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -606,18 +598,18 @@
 			[
 				{
 					"buffer": 0,
-					"file": "app.js",
+					"file": "server.js",
 					"settings":
 					{
-						"buffer_size": 4129,
+						"buffer_size": 3621,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1543,
-								1553
+								1457,
+								1457
 							]
 						],
 						"settings":
@@ -627,30 +619,32 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 975.0,
+						"translation.y": 600.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "views/layout.ejs",
+					"file": "views/index.ejs",
 					"settings":
 					{
-						"buffer_size": 451,
+						"buffer_size": 722,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								94,
-								94
+								625,
+								625
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -660,44 +654,18 @@
 				},
 				{
 					"buffer": 2,
-					"file": "views/index.ejs",
-					"settings":
-					{
-						"buffer_size": 43,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								36,
-								24
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "package.json",
 					"settings":
 					{
-						"buffer_size": 236,
+						"buffer_size": 253,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								188,
-								198
+								250,
+								250
 							]
 						],
 						"settings":

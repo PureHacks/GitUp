@@ -1,3 +1,31 @@
-<div class="title">
-    <%= title %>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%= title %></title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- styles -->
+    <link href="/stylesheets/style.css" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="title">
+	    <%= title %>
+	</div>
+
+	<div id="output">
+	</div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script>
+	  var socket = io.connect('http://' + location.host);
+	  socket.on('arduino', function (data) {
+	  	console.log(data);
+	    $("#output").append($("<div />", {html : data}))
+	  });
+	</script>
+    
+  </body>
+</html>
