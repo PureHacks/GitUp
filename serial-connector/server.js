@@ -2,9 +2,7 @@
 
 //DEPENDANCIES
 var express = require('express')
-  , http = require('http')
   , path = require('path')
-  ,	fs = require('fs')
   , engine = require('ejs-locals')
   , io = require('socket.io')
   , serialport = require('serialport')
@@ -42,15 +40,22 @@ io = io.listen(app.listen(app.get('port')), function(){
 });
 
 
-
 //ROUTS
 app.get('/', function(req, res) {
   res.render('index', { locals : { title: 'Smart Ass' }})
 });
 
 
-io.sockets.on('connection', function (sock){
-	socket = sock;
+var aduinoState = {
+	isConnected : false
+	,lastData : undefined
+};
+
+io.sockets.on('connection', function (newSocket){
+	socket = newSocket;	
+	setTimeout(function(){
+		newSocket.emit('arduino', { value:  aduinoState.lastData, isConnected : aduinoState.isConnected});
+	}, 1500);
 	console.log("Socket connection made");
 })
 
@@ -59,24 +64,38 @@ io.sockets.on('connection', function (sock){
 
 
 
-//SERIAL SEND
+//SERIAL I/O
 
 
+//Called when new data is received from Arduino
 var onDataFromArduino = function(data) {
 	console.log('Arduino: ' + data);
-	fs.appendFile(__dirname + "/output.txt", "\r\n" + data, { 
-		flags: 'a'
-	}, function (err) {
-		if (err) throw err;
-	});
-	//write data to text file
+	aduinoState.lastData = data;
 	if(socket){
-		socket.emit('arduino', { value:  data});
+		socket.emit('arduino', { value:  data, isConnected : aduinoState.isConnected});
+	}
+};
+//Called when connection to Arduino is initialized
+var onConnect = function() {
+	console.log('* connection to arduino successful ! *');
+	if(socket){
+		socket.emit('arduino', { value:  aduinoState.lastData, isConnected : aduinoState.isConnected});
 	}
 };
 
+//Called when connection to Arduino is lost
+var onDisconnect = function() {
+	console.log("* connection to Arduino lost *");
+	if(socket){
+		aduinoState.isConnected = false;
+		socket.emit('arduino', { isConnected : aduinoState.isConnected});
+	}
+};
+
+
+
 //just for debugging
-var detectArduinoOnOSX = function() {
+/*var detectArduinoOnOSX = function() {
 	var port;
 	console.log('* attempting to detect arduino on mac osx *');
 	exec('ls /dev/tty.*', function(error, stdout, stderr){
@@ -92,24 +111,22 @@ var detectArduinoOnOSX = function() {
 			detectArduinoOnRaspberryPI();
 		}
 	});
-};
+};*/
 
 var detectArduinoOnRaspberryPI = function() {
 	var port;
 	console.log('* attempting to detect arduino on raspberry pi *');
 	serialport.list(function (e, ports) {
 		ports.forEach(function(obj) {
-			if (obj.hasOwnProperty('pnpId')){
-		// FTDI captures the duemilanove //
-		// Arduino captures the leonardo //
-				if (obj.pnpId.search('FTDI') != -1 || obj.pnpId.search('Arduino') != -1) {
-					port = obj.comName;
-				}
+			// FTDI captures the duemilanove
+			// Arduino captures the leonardo 
+			if (obj.hasOwnProperty('pnpId') && (obj.pnpId.search('FTDI') != -1 || obj.pnpId.search('Arduino') != -1)){
+				port = obj.comName;
 			}
 		});
-		if (port){
+		if(port){
 			attemptConnection(port);
-		}   else{
+		}else{
 			console.log('* failed to find arduino : please check your connections *');
 		}
 	});
@@ -118,16 +135,10 @@ var detectArduinoOnRaspberryPI = function() {
 var attemptConnection = function(port) {
 	console.log('* attempting to connect to arduino at :', port, ' *');
 	arduino = new serialport.SerialPort(port, { baudrate: 9600, parser: serialport.parsers.readline("\n") });
-	arduino.on("open", function () {
-		console.log('* connection to arduino successful ! *');
-		arduinoPortIsOpen = true;
+	arduino.on("open", function () {		
 		arduino.on('data', onDataFromArduino);
-		
-
-		
-		arduino.on('close', function(){
-			console.log("* connection to Arduino lost *");
-		})
+		arduino.on('close', onDisconnect);
+		onConnect();
 		setTimeout(function(){
 			sendDataToArduino('init');
 		}, 1500);
@@ -140,15 +151,12 @@ var sendDataToArduino = function(buffer) {
 		arduino.write(buffer, function(e, results) {
 			if (e) {
 				console.log('error :: ' + e);
-			}   else{
-				//console.log('message successfully sent');
 			}
 		});
 		arduino.flush();
 	}
 };
 
-
-detectArduinoOnOSX();
-//detectArduinoOnRaspberryPI();
+//detectArduinoOnOSX();
+detectArduinoOnRaspberryPI();
 
