@@ -1,3 +1,20 @@
+@font-face {
+	font-family: 'Plantin-Light';
+	src: url('../fonts/PlantinMTStd-Light.eot');
+	src: local('☺'), url('../fonts/PlantinMTStd-Light.woff') format('woff'), url('../fonts/PlantinMTStd-Light.ttf') format('truetype'), url('../fonts/PlantinMTStd-Light.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'Plantin-Regular';
+	src: url('../fonts/PlantinMTStd-Regular.eot');
+	src: local('☺'), url('../fonts/PlantinMTStd-Regular.woff') format('woff'), url('../fonts/PlantinMTStd-Regular.ttf') format('truetype'), url('../fonts/PlantinMTStd-Regular.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+body {margin: 0; padding: 0; text-align: center;}
+h1 {font-family: "Plantin-Light", Sans-Serif}
+h2 {font-family: "Plantin-Light", Sans-Serif}
 #life-stats { width:640px; height:480px; }
 #current-status.sitting { color:#CC3333; }
 #current-status.active { color:#39b54b; }
