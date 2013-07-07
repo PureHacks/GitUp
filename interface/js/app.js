@@ -9,6 +9,12 @@ chrome.app.runtime.onLaunched.addListener(function(launchData) {
 	});
 });
 
+
+var SmartAss = {
+	statusColors: { sitting : "#CC3333", active : "#39b54b" },
+	
+}
+
 SmartAss = function(){
 	
 	var self = this,
@@ -98,15 +104,15 @@ SmartAss = function(){
 		timer = window.clearInterval(timer);
 
 		timer = window.setInterval( function() {			
-			var elapsed, remaining;
+			var elapsed, remaining, max = 5400;
 
 			if (sitting == 1) {
-				elapsed = data[0][1] >= 60 ? 60 : data[0][1] + 1;				
+				elapsed = data[0][1] >= max ? max : data[0][1] + 1;				
 			} else {
 				elapsed = data[0][1] <= 0 ? 0 : data[0][1] - 1;				
 			}
 			
-			remaining = 60 - elapsed;
+			remaining = max - elapsed;
 
 			data[0][1] = elapsed;
 			data[1][1] = remaining;
@@ -127,12 +133,16 @@ $(document).ready( function(){
 	
 		app.showLifeStatus();
 
+	/*
 	var socket = io.connect('http://10.102.24.162:8080/');
 		socket.on('arduino', function (data) {
 			//console.log(data);		  	
 			if (data) {
 				app.updateStatus(data.value);
 		  	}
-		});		
-	
+		});	
+	*/
+	//test code
+	$("#sitting").on("click",function(){ app.updateStatus(0); });
+	$("#active").on("click",function(){ app.updateStatus(1); });	
 });
