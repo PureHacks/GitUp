@@ -9,20 +9,17 @@ chrome.app.runtime.onLaunched.addListener(function(launchData) {
 	});
 });
 
-
-var SmartAss = {
-	statusColors: { sitting : "#CC3333", active : "#39b54b" },
-	
-}
-
 SmartAss = function(){
 	
 	var self = this,
-		statusColors = { sitting : "#CC3333", active : "#39b54b" },
+		statusColors = { green : "#00933B", yellow : "#F2B50F", red: "#F90101" },
 		statusLabel = $("#current-status"),
+		deaths = 0,
 		sitting = 0,
 		timer = null,
-		data = [['elapsed',0],['remaining',60]],
+		recoveredTime = 100, //5400
+ 		recoveryInterval = 18,  /* will recover 18x faster than dying*/
+ 		data = [['elapsed',recoveredTime],['remaining',0]],
 		lifeStats,
 		lifeStatsOptions = {},
 		INTERVAL = 3000,	// update every 5 seconds	
@@ -46,11 +43,28 @@ SmartAss = function(){
 			statusLabel.html(localization.en.status_label_sitting);
 		}
 	};
+	var comments = [];
+		
+		comments[0] = ["Congrats, you're smarter than you look.", "Hey, welcome back. Don't get too comfortable...", "Not exactly going for the world record, are we?",	"Did you miss me?"];
+		comments[1] = ["Oh, my aching bolts. 30 minutes and counting...","At this rate, you might want to invest in a mattress.","Ok, I think its time for a walk. I promise I won't go anywhere.","You just lost a life. What is this, a game to you?","Y U NO GET UP???","I wasn't designed for this."];
+
+
+	var setDonutColor = function(_color) {
+		if (lifeStats.series[0].seriesColors[0] != _color ) {
+			lifeStats.series[0].seriesColors[0] = _color;
+			chrome.app.window.current().focus();
+
+			$("#comments").html( comments[sitting][ Math.floor((Math.random() * comments[sitting].length )+0) ] );
+		
+		}	
+	}
+
 	
+
 	self.showLifeStatus = function(params){		
 		
 		lifeStatsOptions = {
-			seriesColors: [statusColors.sitting],
+			seriesColors: [statusColors.green],
 			seriesDefaults: {
 				// make this a donut chart.
 				renderer:$.jqplot.DonutRenderer,
@@ -73,62 +87,60 @@ SmartAss = function(){
 		updateStatusUI("sitting");
 	};
 	
-	self.updateStatus = function(_active){		
-		// need to be getting new data here
-		// we use random seed for now
-		//var randomSeed = Math.floor((Math.random()*10)+1);	// 1 - 10
-		sitting = _active; //upate global state
+	self.updateStatus = function(_sitting){		
 
-		if (_active == 1) {			
-			// active
-			$("#log").html("active");
-			if (lifeStatsOptions.seriesColors[0] !== statusColors.active) {
-				updateStatusUI("active");				
-			}
-		} else {			
-			// sitting
-			$("#log").html("sitting");
-			if (lifeStatsOptions.seriesColors[0] !== statusColors.sitting) {
-				updateStatusUI("sitting");				
-			}
-		}
-
-		//lifeStatsOptions.seriesColors = [statusColors.active];
-		//lifeStats.replot(lifeStatsOptions);
-		animate();
-
-	};
-
-	var animate = function() {	
+		sitting = _sitting;
 
 		timer = window.clearInterval(timer);
 
 		timer = window.setInterval( function() {			
-			var elapsed, remaining, max = 5400;
+			var elapsed, remaining;
 
-			if (sitting == 1) {
-				elapsed = data[0][1] >= max ? max : data[0][1] + 1;				
+			if (sitting == 0) { //currently not sitting
+				elapsed = data[0][1] >= recoveredTime ? recoveredTime : data[0][1] + recoveryInterval;				
 			} else {
-				elapsed = data[0][1] <= 0 ? 0 : data[0][1] - 1;				
-			}
-			
-			remaining = max - elapsed;
+				elapsed = data[0][1] <= 0 ? 0 : data[0][1] - 1;
+	        }
 
-			data[0][1] = elapsed;
-			data[1][1] = remaining;
+	        remaining = recoveredTime - elapsed;
 
-			//lifeStatsOptions.seriesColors[0].data = data;
+	        data[0][1] = elapsed;
+	        data[1][1] = remaining;
+
+			if (elapsed <= (recoveredTime * 0.33) ) {
+				setDonutColor(statusColors.red);				
+			} else if (elapsed <= (recoveredTime * 0.66)) {
+				setDonutColor(statusColors.yellow);				
+			} else {
+				setDonutColor(statusColors.green);				
+			}		
 
 			lifeStats.series[0].data = data;
-			lifeStats.replot({resetAxes:true});			
+			lifeStats.replot({resetAxes:true});
 			lifeStats.redraw();
 
 			$("#log1").html(elapsed);
 
-		},1000);
-	}
+			if (elapsed == 0) {
+				if (deaths >= 3) {
+					timer = window.clearInterval(timer);
+					$("#deaths").html("You have failed your ass: " + deaths);
+					return false;
+				} else {
+					deaths += 1;
+					data = [['elapsed',recoveredTime],['remaining',0]];
+					$("#deaths").html("Deaths: " + deaths);
+				}
+			}
+
+		},10);
+
+	};
+
 };
+
 var app = new SmartAss();
+
 $(document).ready( function(){
 	
 		app.showLifeStatus();
@@ -143,6 +155,6 @@ $(document).ready( function(){
 		});	
 	*/
 	//test code
-	$("#sitting").on("click",function(){ app.updateStatus(0); });
-	$("#active").on("click",function(){ app.updateStatus(1); });	
+	$("#sitting").on("click",function(){ app.updateStatus(1); });
+	$("#active").on("click",function(){ app.updateStatus(0); });	
 });
