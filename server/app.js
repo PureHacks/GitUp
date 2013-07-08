@@ -28,7 +28,7 @@ function handler (req, res) {
     }
     else if (path == "/chair-status") {
         var params = querystring.parse(qs);
-        var chairState = params.value;
+        var chairState = (params.value == "true" ? true : false);
         io.sockets.emit('chair', {type : "update", value: chairState, isConnected : 1});
         res.writeHead(200, {'Content-Type': 'text/plain'});
         res.end();
