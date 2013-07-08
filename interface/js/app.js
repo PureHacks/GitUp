@@ -147,7 +147,7 @@ $(document).ready( function(){
 
 	
 	var socket = io.connect('http://smartass.khoaski.com/');
-		socket.on('arduino', function (data) {
+		socket.on('chair', function (data) {
 			//console.log(data);		  	
 			if (data) {
 				app.updateStatus(data.value);
