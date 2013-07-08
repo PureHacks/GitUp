@@ -15,7 +15,7 @@ SmartAss = function(){
 		statusColors = { green : "#00933B", yellow : "#F2B50F", red: "#F90101" },
 		statusLabel = $("#current-status"),
 		deaths = 0,
-		sitting = 0,
+		sitting = false,
 		timer = null,
 		recoveredTime = 100, //5400
  		recoveryInterval = 18,  /* will recover 18x faster than dying*/
@@ -96,10 +96,10 @@ SmartAss = function(){
 		timer = window.setInterval( function() {			
 			var elapsed, remaining;
 
-			if (sitting == 0) { //currently not sitting
-				elapsed = data[0][1] >= recoveredTime ? recoveredTime : data[0][1] + recoveryInterval;				
-			} else {
+			if (sitting) { //currently not sitting
 				elapsed = data[0][1] <= 0 ? 0 : data[0][1] - 1;
+			} else {
+				elapsed = data[0][1] >= recoveredTime ? recoveredTime : data[0][1] + recoveryInterval;				
 	        }
 
 	        remaining = recoveredTime - elapsed;
@@ -145,16 +145,18 @@ $(document).ready( function(){
 	
 		app.showLifeStatus();
 
-	/*
-	var socket = io.connect('http://10.102.24.162:8080/');
+	
+	var socket = io.connect('http://smartass.khoaski.com/');
 		socket.on('arduino', function (data) {
 			//console.log(data);		  	
 			if (data) {
 				app.updateStatus(data.value);
 		  	}
 		});	
-	*/
+	
 	//test code
+	/*
 	$("#sitting").on("click",function(){ app.updateStatus(1); });
-	$("#active").on("click",function(){ app.updateStatus(0); });	
+	$("#active").on("click",function(){ app.updateStatus(0); });
+	*/	
 });
