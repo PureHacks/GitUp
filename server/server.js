@@ -44,23 +44,21 @@ io = io.listen(app.listen(app.get('port')), function(){
 });
 
 
-//ROUTS
+//ROUTES
 app.get('/', function(req, res) {
   res.render('index', { locals : { title: 'Smart Ass' }})
 });
 
 app.get('/chair-status', function(req, res) {
-	console.log(req.query.value);
+	io.sockets.emit('chair', {type : "update", value:  data, isConnected : chairState.isConnected});
 })
 
 
-//io.sockets.emit('chair', {type : "disconnect", isConnected : aduinoState.isConnected});
-//socket.emit('chair', {type : "init", value:  aduinoState.lastData, isConnected : aduinoState.isConnected});
-//io.sockets.emit('chair', {type : "update", value:  data, isConnected : aduinoState.isConnected});
+//io.sockets.emit('chair', {type : "disconnect", isConnected : chairState.isConnected});
 
 
 //when new socket is connected
 io.sockets.on('connection', function (socket){
 	console.log("New socket connection made");
-	socket.emit('arduino', {type : "init", value:  aduinoState.lastData, isConnected : aduinoState.isConnected});
+	socket.emit('chair', {type : "init", value:  chairState.lastData, isConnected : chairState.isConnected});
 });
