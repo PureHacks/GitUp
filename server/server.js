@@ -49,7 +49,9 @@ app.get('/', function(req, res) {
 });
 
 app.get('/chair-status', function(req, res) {
-	io.sockets.emit('chair', {type : "update", value:  data, isConnected : chairState.isConnected});
+	var chairState = eval(req.query.value);
+
+	io.sockets.emit('chair', {type : "update", value: chairState, isConnected : 1});
 })
 
 
@@ -59,5 +61,5 @@ app.get('/chair-status', function(req, res) {
 //when new socket is connected
 io.sockets.on('connection', function (socket){
 	console.log("New socket connection made");
-	socket.emit('chair', {type : "init", value:  chairState.lastData, isConnected : chairState.isConnected});
+	socket.emit('chair', {type : "init", value:  null, isConnected : null});
 });
