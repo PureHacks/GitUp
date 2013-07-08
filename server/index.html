@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+    <title>Smart Ass</title>
+</head>
+<body>
+    <h1>SmartAss</h1>
+    <div id="output"></div>
+</body>
+</html>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect('http://' + location.host);
+        socket.on('chair', function (data) {
+        console.log(data);
+        $("#output").append($("<div />", {text : JSON.stringify(data)}))
+    });
+</script>
