@@ -51,7 +51,7 @@ app.get('/', function(req, res) {
 app.get('/chair-status', function(req, res) {
 	var chairState = req.query.value == "true" ? 1 : 0;
 	io.sockets.emit('chair', {type : "update", value: chairState, isConnected : 1});
-})
+});
 
 
 //io.sockets.emit('chair', {type : "disconnect", isConnected : chairState.isConnected});
