@@ -143,18 +143,19 @@ var app = new SmartAss();
 
 $(document).ready( function(){
 	
-		app.showLifeStatus();
+	app.showLifeStatus();
 
-	/*
-	var socket = io.connect('http://10.102.24.162:8080/');
-		socket.on('arduino', function (data) {
+	var socket = io.connect('http://smartass.khoaski.com:3000');
+		socket.on('chair', function (data) {
 			//console.log(data);		  	
 			if (data) {
 				app.updateStatus(data.value);
 		  	}
-		});	
-	*/
+		});
+	
+	/*
 	//test code
 	$("#sitting").on("click",function(){ app.updateStatus(1); });
 	$("#active").on("click",function(){ app.updateStatus(0); });	
+	*/
 });
