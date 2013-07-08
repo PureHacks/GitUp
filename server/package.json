@@ -1,0 +1,11 @@
+{
+  "name": "SmartAss",
+  "version": "0.0.2",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "socket.io": "0.9.16"
+  }
+}

@@ -143,20 +143,35 @@ var app = new SmartAss();
 
 $(document).ready( function(){
 	
-		app.showLifeStatus();
+	app.showLifeStatus();
 
+<<<<<<< HEAD
 	
 	var socket = io.connect('http://smartass.khoaski.com/');
+=======
+	var socket = io.connect('http://smartass.khoaski.com:3000');
+>>>>>>> f4ce595dc51a50077038c0080206053f66bf67d3
 		socket.on('chair', function (data) {
 			//console.log(data);		  	
 			if (data) {
 				app.updateStatus(data.value);
 		  	}
+<<<<<<< HEAD
 		});	
 	
+=======
+		});
+	
+	/*
+>>>>>>> f4ce595dc51a50077038c0080206053f66bf67d3
 	//test code
 	/*
 	$("#sitting").on("click",function(){ app.updateStatus(1); });
+<<<<<<< HEAD
 	$("#active").on("click",function(){ app.updateStatus(0); });
 	*/	
+=======
+	$("#active").on("click",function(){ app.updateStatus(0); });	
+	*/
+>>>>>>> f4ce595dc51a50077038c0080206053f66bf67d3
 });
