@@ -3,7 +3,6 @@ var express = require('express')
   , path = require('path')
   , engine = require('ejs-locals')
   , io = require('socket.io')
-  , serialport = require('serialport')
   , exec = require('child_process').exec
   , app = express()
   , events = require('events')  
