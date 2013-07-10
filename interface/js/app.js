@@ -54,7 +54,9 @@ SmartAss = function(){
 			lifeStats.series[0].seriesColors[0] = _color;
 			chrome.app.window.current().focus();
 
-			$("#comments").html( comments[sitting][ Math.floor((Math.random() * comments[sitting].length )+0) ] );
+			var index = sitting ? 1 : 0;
+
+			$("#comments").html( comments[index][ Math.floor((Math.random() * comments[index].length )+0) ] );
 		
 		}	
 	}
@@ -133,7 +135,7 @@ SmartAss = function(){
 				}
 			}
 
-		},10);
+		},1000);
 
 	};
 
@@ -145,33 +147,18 @@ $(document).ready( function(){
 	
 	app.showLifeStatus();
 
-<<<<<<< HEAD
-	
 	var socket = io.connect('http://smartass.khoaski.com/');
-=======
-	var socket = io.connect('http://smartass.khoaski.com:3000');
->>>>>>> f4ce595dc51a50077038c0080206053f66bf67d3
+
 		socket.on('chair', function (data) {
 			//console.log(data);		  	
 			if (data) {
 				app.updateStatus(data.value);
 		  	}
-<<<<<<< HEAD
-		});	
-	
-=======
 		});
-	
-	/*
->>>>>>> f4ce595dc51a50077038c0080206053f66bf67d3
 	//test code
 	/*
 	$("#sitting").on("click",function(){ app.updateStatus(1); });
-<<<<<<< HEAD
+
 	$("#active").on("click",function(){ app.updateStatus(0); });
 	*/	
-=======
-	$("#active").on("click",function(){ app.updateStatus(0); });	
-	*/
->>>>>>> f4ce595dc51a50077038c0080206053f66bf67d3
 });
