@@ -5,7 +5,9 @@ chrome.app.runtime.onLaunched.addListener(function(launchData) {
 			height: 600
 		},
 		minWidth: 650,
-		minHeight: 600
+		minHeight: 600,
+		frame: "none",
+		transparentBackground: true
 	});
 });
 
@@ -17,7 +19,7 @@ SmartAss = function(){
 		deaths = 0,
 		sitting = false,
 		timer = null,
-		recoveredTime = 100, //5400
+		recoveredTime = 10, //5400
  		recoveryInterval = 18,  /* will recover 18x faster than dying*/
  		data = [['elapsed',recoveredTime],['remaining',0]],
 		lifeStats,
@@ -44,7 +46,7 @@ SmartAss = function(){
 		}
 	};
 	var comments = [];
-		
+
 		comments[0] = ["Congrats, you're smarter than you look.", "Hey, welcome back. Don't get too comfortable...", "Not exactly going for the world record, are we?",	"Did you miss me?"];
 		comments[1] = ["Oh, my aching bolts. 30 minutes and counting...","At this rate, you might want to invest in a mattress.","Ok, I think its time for a walk. I promise I won't go anywhere.","You just lost a life. What is this, a game to you?","Y U NO GET UP???","I wasn't designed for this."];
 
@@ -54,17 +56,28 @@ SmartAss = function(){
 			lifeStats.series[0].seriesColors[0] = _color;
 			chrome.app.window.current().focus();
 
-			var index = sitting ? 1 : 0;
+			var index = sitting ? 1 : 0,
+				comment,
+				notifyOptions = {},
+				random;
 
-			$("#comments").html( comments[index][ Math.floor((Math.random() * comments[index].length )+0) ] );
-		
-		}	
-	}
+				random = Math.random();
+				comment = comments[index][ Math.floor((random * comments[index].length )+0) ];
 
-	
+			notifyOptions = {	type: "basic",
+								title: "SmartAss Notification",
+								message: comment,
+								iconUrl: chrome.runtime.getURL("/img/icon-128.png")
+							};
 
-	self.showLifeStatus = function(params){		
-		
+
+			chrome.notifications.create("id"+random, notifyOptions, function() { console.log("call back");});
+		}
+	};
+
+
+	self.showLifeStatus = function(params){
+
 		lifeStatsOptions = {
 			seriesColors: [statusColors.green],
 			seriesDefaults: {
@@ -84,46 +97,44 @@ SmartAss = function(){
 				}
 			}
 		};
-		
+
 		lifeStats = $.jqplot("life-stats", [data], lifeStatsOptions);
 		updateStatusUI("sitting");
 	};
-	
-	self.updateStatus = function(_sitting){		
+
+	self.updateStatus = function(_sitting){
 
 		sitting = _sitting;
 
 		timer = window.clearInterval(timer);
 
-		timer = window.setInterval( function() {			
-			var elapsed, remaining;
+		timer = window.setInterval( function() {
+					var elapsed, remaining;
 
 			if (sitting) { //currently not sitting
 				elapsed = data[0][1] <= 0 ? 0 : data[0][1] - 1;
 			} else {
-				elapsed = data[0][1] >= recoveredTime ? recoveredTime : data[0][1] + recoveryInterval;				
-	        }
+				elapsed = data[0][1] >= recoveredTime ? recoveredTime : data[0][1] + recoveryInterval;
+			}
 
-	        remaining = recoveredTime - elapsed;
+			remaining = recoveredTime - elapsed;
 
-	        data[0][1] = elapsed;
-	        data[1][1] = remaining;
+			data[0][1] = elapsed;
+			data[1][1] = remaining;
 
 			if (elapsed <= (recoveredTime * 0.33) ) {
-				setDonutColor(statusColors.red);				
+				setDonutColor(statusColors.red);
 			} else if (elapsed <= (recoveredTime * 0.66)) {
-				setDonutColor(statusColors.yellow);				
+				setDonutColor(statusColors.yellow);
 			} else {
-				setDonutColor(statusColors.green);				
-			}		
+				setDonutColor(statusColors.green);
+			}
 
 			lifeStats.series[0].data = data;
 			lifeStats.replot({resetAxes:true});
 			lifeStats.redraw();
 
-			$("#log1").html(elapsed);
-
-			if (elapsed == 0) {
+			if (elapsed === 0) {
 				if (deaths >= 3) {
 					timer = window.clearInterval(timer);
 					$("#deaths").html("You have failed your ass: " + deaths);
@@ -144,9 +155,9 @@ SmartAss = function(){
 var app = new SmartAss();
 
 $(document).ready( function(){
-	
-	app.showLifeStatus();
 
+	app.showLifeStatus();
+/*
 	var socket = io.connect('http://smartass.khoaski.com/');
 
 		socket.on('chair', function (data) {
@@ -154,11 +165,11 @@ $(document).ready( function(){
 			if (data) {
 				app.updateStatus(data.value);
 		  	}
-		});
+		});*/
 	//test code
-	/*
+
 	$("#sitting").on("click",function(){ app.updateStatus(1); });
 
 	$("#active").on("click",function(){ app.updateStatus(0); });
-	*/	
+
 });
