@@ -15,6 +15,14 @@
 body {margin: 0; padding: 0; text-align: center; font-family: "Plantin-Light", Sans-Serif}
 h1 {font-family: "Plantin-Light", Sans-Serif}
 h2 {font-family: "Plantin-Light", Sans-Serif}
-#life-stats { width:640px; height:480px; }
+#life-chart { width:450px; height:450px; }
+#life-stats { width:400px; height:400px; background-color: #2C3E50; border-radius: 50%; text-align: center; position: absolute; top: 25px; left: 25px;  z-index: -1; }
+.hearts {width: 240px; height: 37px; margin: 45% auto; background: url('/img/hearts.png') no-repeat;}
+.lost-0 { background-position: 0 0; }
+.lost-1 { background-position: 0 -37px; }
+.lost-2 { background-position: 0 -74px; }
+.lost-3 { background-position: 0 -111px }
+.lost-4 { background-position: 0 -148px }
+.lost-5 { background-position: 0 -185px }
 #current-status.sitting { color:#CC3333; }
 #current-status.active { color:#39b54b; }
