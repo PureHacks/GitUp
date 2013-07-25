@@ -71,8 +71,8 @@ SmartAss = function() {
 	var comments = [];
 
 	comments[0] = ["Congrats, you're smarter than you look.", "Hey, welcome back. Don't get too comfortable...", "Not exactly going for the world record, are we?", "Did you miss me?"];
-	comments[1] = ["Oh, my aching bolts. 30 minutes and counting...", "At this rate, you might want to invest in a mattress.", "Ok, I think its time for a walk. I promise I won't go anywhere.", "You just lost a life. What is this, a game to you?", "Y U NO GET UP???", "I wasn't designed for this."];
-
+	comments[1] = ["Oh, my aching bolts. 30 minutes and counting...", "At this rate, you might want to invest in a mattress.", "Ok, I think its time for a walk. I promise I won't go anywhere.", "Y U NO GET UP???", "I wasn't designed for this."];
+	comments[2] = ["You just lost a life. What is this, a game to you?"];
 
 	var setDonutColor = function(_color) {
 		if (lifeStats.series[0].seriesColors[0] != _color) {
@@ -87,19 +87,24 @@ SmartAss = function() {
 			random = Math.random();
 			comment = comments[index][Math.floor((random * comments[index].length) + 0)];
 
-			notifyOptions = {
-				type: "basic",
-				title: "SmartAss Notification",
-				message: comment,
-				iconUrl: chrome.runtime.getURL("/img/icon-128-notify.png")
-			};
-
-
-			chrome.notifications.create("id" + random, notifyOptions, function() {
-				console.info("Notification: " + comment);
-			});
+			self.notify(comment);
 		}
 	};
+
+	self.notify = function(msg) {
+		random = Math.random();
+
+		notifyOptions = {
+			type: "basic",
+			title: "SmartAss",
+			message: msg,
+			iconUrl: chrome.runtime.getURL("/img/icon-128-notify.png")
+		};
+
+		chrome.notifications.create(""id" + random", notifyOptions, function() {
+			console.info("Notification: " + comment);
+		});
+	}
 
 
 	self.showLifeStatus = function(params) {
@@ -186,6 +191,7 @@ SmartAss = function() {
 
 					$(".heart-" + deaths).addClass("fart");
 				}
+				self.notify(comments[2][0]);
 			}
 
 		}, 1000);
