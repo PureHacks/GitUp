@@ -91,7 +91,7 @@ SmartAss = function() {
 				type: "basic",
 				title: "SmartAss Notification",
 				message: comment,
-				iconUrl: chrome.runtime.getURL("/img/icon-128.png")
+				iconUrl: chrome.runtime.getURL("/img/icon-128-notify.png")
 			};
 
 
@@ -142,6 +142,11 @@ SmartAss = function() {
 		timer = window.setInterval(function() {
 			var elapsed, remaining;
 
+			if (deaths == 5) {
+				return false;
+				console.info("You have no more life!");
+			}
+
 			if (sitting) { //currently not sitting
 				elapsed = data[0][1] <= 0 ? 0 : data[0][1] - 1;
 			} else {
@@ -170,7 +175,7 @@ SmartAss = function() {
 			if (elapsed === 0) {
 				if (deaths >= 4) {
 					timer = window.clearInterval(timer);
-					$(".hearts").attr("class","hearts lost-" + deaths);
+					$(".heart-" + (deaths + 1)).addClass("fart");
 					return false;
 				} else {
 					deaths += 1;
@@ -179,7 +184,7 @@ SmartAss = function() {
 						['remaining', 0]
 					];
 
-					$(".hearts").attr("class","hearts lost-" + deaths);
+					$(".heart-" + deaths).addClass("fart");
 				}
 			}
 
@@ -198,10 +203,10 @@ $(document).ready(function() {
 	var socket = io.connect('http://smartass.khoaski.com/');
 
 		socket.on('chair', function (data) {
-			//console.log(data);		  	
+			//console.log(data);
 			if (data) {
 				app.updateStatus(data.value);
-		  	}
+			}
 		});*/
 	//test code
 
