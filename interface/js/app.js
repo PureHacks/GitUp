@@ -7,8 +7,8 @@ chrome.app.runtime.onLaunched.addListener(function(launchData) {
 		},
 		minWidth: 450,
 		minHeight: 450,
-		resizable: false,
-		singleton: true
+		singleton: true,
+		frame: 'none'
 	});
 });
 
@@ -223,6 +223,32 @@ $(document).ready(function() {
 				app.updateStatus(data.value);
 			}
 		});*/
+
+	$("#btn-close").click(function() {
+		chrome.app.window.current().close();
+	});
+
+	// Make widget draggable without window chrome
+	var mouseDownCoords = {};
+	var isMouseDown = false;
+	$("body").on("mousedown", function(e) {
+		isMouseDown = true;
+		mouseDownCoords = { x: e.clientX, y: e.clientY };
+	});
+	$("body").on("mouseup", function(e) {
+		isMouseDown = false;
+	});
+
+	$("body").on("mousemove", function(e) {
+		if (isMouseDown) {
+			chrome.app.window.current().moveTo(e.screenX - mouseDownCoords.x, e.screenY - mouseDownCoords.y - 20);
+			console.log("move window to x: " + e.screenX + ", y: " + e.screenY);
+		}
+		else {
+			e.preventDefault();
+		}
+	});
+
 	//test code
 
 	$("#sitting").on("click", function() {
