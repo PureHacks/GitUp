@@ -41,8 +41,8 @@ SmartAss = function() {
 		deaths = 0,
 		sitting = false,
 		timer = null,
-		recoveredTime = 10, //5400
-		recoveryInterval = 18,
+		recoveredTime = 40, //5400
+		recoveryInterval = 4,
 		/* will recover 18x faster than dying*/
 		data = [
 			['elapsed', recoveredTime],

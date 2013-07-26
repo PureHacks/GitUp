@@ -28,8 +28,9 @@ h2 {font-family: "Plantin-Light", Sans-Serif}
     }
 
 
-.with-logo .heart-wrapper { width: 284px; height: 72px; margin: 67% auto 0; -webkit-transform: scale(0.52,0.52); }
-.with-logo #logo { position:absolute; top:130px; left:50%; width:224px; height:161px; margin-left:-112px; background:transparent url('/img/logo.png') no-repeat; }
+.with-logo .heart-wrapper { width: 260px; height: 72px; margin: 60% auto 0; -webkit-transform: scale(0.8); }
+.with-logo #logo { position:absolute; top:110px; left:50%; width:224px; height:161px; margin-left:-112px; background:transparent url('/img/logo.png') no-repeat; 
+                   -webkit-transform: scale(0.8); }
 
 #btn-close{ position:absolute; top:8px; right:8px; width:30px; height:30px; -webkit-border-radius: 30px; -webkit-transform: rotate(45deg); 
             background: #605F61; font:bold 30px Plantin-Regular; color: #fff; cursor:pointer; 
