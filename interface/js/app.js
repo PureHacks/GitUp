@@ -101,7 +101,7 @@ SmartAss = function() {
 			iconUrl: chrome.runtime.getURL("/img/icon-128-notify.png")
 		};
 
-		chrome.notifications.create("id" + random", notifyOptions, function() {
+		chrome.notifications.create("id" + random, notifyOptions, function() {
 			console.info("Notification: " + comment);
 		});
 	}

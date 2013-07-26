@@ -17,13 +17,17 @@ h1 {font-family: "Plantin-Light", Sans-Serif}
 h2 {font-family: "Plantin-Light", Sans-Serif}
 #life-chart { width:450px; height:450px; }
 #life-stats { width:400px; height:400px; background-color: #2C3E50; border-radius: 50%; text-align: center; position: absolute; top: 25px; left: 25px;  z-index: -1; }
-.heart-wrapper {width: 260px; height: 72px; margin: 45% auto; position: relative;}
+.heart-wrapper {width: 260px; height: 72px; margin: 45% auto; position: relative; }
 .hearts { padding: 0}
 .hearts li { background-position:0; background: url('/img/hearts.png') no-repeat; width: 72px; height: 92px; margin-left: -25px; float: left; list-style: none}
 .hearts li:first-child { margin-left: 0}
 .fart { -webkit-animation: play .5s steps(21); -webkit-animation-fill-mode: forwards;}
+    @-webkit-keyframes play {
+       from { background-position:    0; }
+         to { background-position: -1512px; }
+    }
 
-	@-webkit-keyframes play {
-	   from { background-position:    0; }
-	     to { background-position: -1512px; }
-	}
+
+
+.with-logo .heart-wrapper { width: 284px; height: 72px; margin: 67% auto 0; -webkit-transform: scale(0.52,0.52); }
+.with-logo #logo { position:absolute; top:130px; left:50%; width:224px; height:161px; margin-left:-112px; background:transparent url('/img/logo.png') no-repeat; }
