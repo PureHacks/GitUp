@@ -1,4 +1,4 @@
-@font-face {
+﻿@font-face {
 	font-family: 'Plantin-Light';
 	src: url('../fonts/PlantinMTStd-Light.eot');
 	src: local('☺'), url('../fonts/PlantinMTStd-Light.woff') format('woff'), url('../fonts/PlantinMTStd-Light.ttf') format('truetype'), url('../fonts/PlantinMTStd-Light.svg') format('svg');
@@ -33,5 +33,5 @@ h2 {font-family: "Plantin-Light", Sans-Serif}
                    -webkit-transform: scale(0.8); }
 
 #btn-close{ position:absolute; top:8px; right:8px; width:30px; height:30px; -webkit-border-radius: 30px; -webkit-transform: rotate(45deg); 
-            background: #605F61; font:bold 30px Plantin-Regular; color: #fff; cursor:pointer; 
+            background: #605F61; font:bold 30px/1 Arial; color: #fff; cursor:pointer; 
 }

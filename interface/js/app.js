@@ -241,7 +241,7 @@ $(document).ready(function() {
 
 	$("body").on("mousemove", function(e) {
 		if (isMouseDown) {
-			chrome.app.window.current().moveTo(e.screenX - mouseDownCoords.x, e.screenY - mouseDownCoords.y - 20);
+			chrome.app.window.current().moveTo(e.screenX - mouseDownCoords.x, e.screenY - mouseDownCoords.y);
 			console.log("move window to x: " + e.screenX + ", y: " + e.screenY);
 		}
 		else {
