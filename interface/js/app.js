@@ -1,11 +1,14 @@
 chrome.app.runtime.onLaunched.addListener(function(launchData) {
 	chrome.app.window.create('../app/index.html', {
+		id: "SmartAssWidget",
 		bounds: {
 			width: 450,
 			height: 450
 		},
 		minWidth: 450,
-		minHeight: 450
+		minHeight: 450,
+		resizable: false,
+		singleton: true
 	});
 });
 
@@ -77,7 +80,7 @@ SmartAss = function() {
 	var setDonutColor = function(_color) {
 		if (lifeStats.series[0].seriesColors[0] != _color) {
 			lifeStats.series[0].seriesColors[0] = _color;
-			chrome.app.window.current().focus();
+			//chrome.app.window.current().focus();
 
 			var index = sitting ? 1 : 0,
 				comment,
@@ -92,7 +95,7 @@ SmartAss = function() {
 	};
 
 	self.notify = function(msg) {
-		random = Math.random();
+		var notificationID = "id" + Math.random();
 
 		notifyOptions = {
 			type: "basic",
@@ -101,9 +104,14 @@ SmartAss = function() {
 			iconUrl: chrome.runtime.getURL("/img/icon-128-notify.png")
 		};
 
-		chrome.notifications.create("id" + random, notifyOptions, function() {
+		notification = chrome.notifications.create(notificationID, notifyOptions, function() {
 			console.info("Notification: " + comment);
 		});
+
+	}
+
+	self.notificationClicked = function() {
+		chrome.app.window.current().focus();
 	}
 
 
@@ -205,6 +213,7 @@ var app = new SmartAss();
 $(document).ready(function() {
 
 	app.showLifeStatus();
+	chrome.notifications.onClicked.addListener(app.notificationClicked);
 	/*
 	var socket = io.connect('http://smartass.khoaski.com/');
 
