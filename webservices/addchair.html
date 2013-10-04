@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <title>Smart Ass</title>
+</head>
+<body>
+    <h1>Add Chair</h1>
+    <div id="output"></div>
+	<form name="input" action="http://localhost/user/insert-chair" method="post">
+		Chair Name: <input type="text" name="chairname"><br>
+		<input type="submit" value="Submit">
+	</form>
+</body>
+</html>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<!--
+<script>
+    var socket = io.connect('http://' + location.host);
+        socket.on('chair', function (data) {
+        console.log(data);
+        $("#output").append($("<div />", {text : JSON.stringify(data)}))
+    });
+</script>
+-->
