@@ -1,6 +1,6 @@
 chrome.app.runtime.onLaunched.addListener(function(launchData) {
 	console.log("launched");
-	chrome.app.window.create('../index.html', {
+	chrome.app.window.create('../mood.html', {
 	id: "GitUpWidget",
 	bounds: {
 		width: 360,
