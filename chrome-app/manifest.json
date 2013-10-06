@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "GitUp!",
+  "description": "App to remind you to flex your ass.",
+  "version": "0.1",
+  "permissions": [
+    "storage",
+    "notifications",
+    "app.runtime",
+    "app.window",
+    "idle",
+    "pushMessaging",
+    "system.display"
+  ],
+  "app": {
+    "background": {
+      "scripts": [
+        "js/jquery-2.0.3.min.js",
+        "js/socket.io.js",
+        "js/app.js"
+      ]
+    }
+  },
+  "icons": { "16": "img/icon-16.png", "128": "img/icon-128.png" }
+}

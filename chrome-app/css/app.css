@@ -1,0 +1,37 @@
+@import url(fonts.css);
+
+body { margin:0; padding:30px; color:white; background-color:#2c3e50; overflow-y:hidden;
+	   font-family:"Proxima Nova Reg"; font-size:16px; color:white; -webkit-app-region:drag; }
+a { color: white; text-decoration:none; }
+
+
+/* Branding */
+h1 { position:absolute; top:0; left:0; height:30px; margin:0; padding:0 12px 0; 
+	 font-size:1rem; line-height:30px; background-color:#e74c3c; }
+h1 strong { font-family:"Proxima Nova Bold"; }
+
+/* Minimize & Close Buttons */
+#window-controls { position:absolute; top:0; right:0; }
+#window-controls a { display:block; width:30px; height:30px; float:right; 
+	                 text-indent:-999px; background:url(../img/btn-close-minimize.png) no-repeat;}
+#window-controls .btn-close { background-position:-30px 0; }
+#window-controls .btn-minimize { background-position:0 0; }
+
+/* Buttons */
+.button { padding: 16px 24px; color:white; font-family:"Proxima Nova Reg"; font-size:1rem; text-decoration: none; 
+          border: 0; border-radius: 2px; cursor: pointer; }
+.btn-green { background-color:#2dc970; }
+.btn-yellow { background-color:#f19715; }
+.btn-red { background-color:#e54b3b; }
+
+/* Sections/Views */
+section.main { display:none; margin-top:30px; -webkit-app-region: no-drag; }
+section.main form { position:relative; height:350px; }
+section.main form p { margin:0 0 12px; }
+section.main form p.buttons { position:absolute; bottom:0; margin:0; }
+section.main form input { width:270px; padding: 12px 15px; font-size: 18px; color:#95a5a6;  
+						  background-color:#34495e; border: 0; border-radius: 4px; }
+
+#register .step2 { display:none; }
+#register input[name="chair-id"] { width: 86px; margin-right:10px; }
+#register input[name=password] { width: 140px; }

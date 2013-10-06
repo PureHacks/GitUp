@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+	<head>
+		<link href="css/app.css" rel="stylesheet">
+	</head>
+  <body>
+  	<h1><strong>GIT</strong>UP</h1>
+  	<div id="window-controls">
+		<a href="#" class="btn-close">Close</a>
+		<a href="#" class="btn-minimize">Minimize</a>
+	</div>
+    <section class="main" id="home">
+		<h2>Hi <span class="user-first-name">Lucas</span>!</h2>
+		<h3>How are you feeling?</h3>
+		<form>
+			<ul>
+				<li><input type="radio" name="mood" value="1" /> Meh</li>
+				<li><input type="radio" name="mood" value="2" /> Good</li>
+				<li><input type="radio" name="mood" value="3" /> Great!</li>
+			</ul>
+		</form>
+    </section>
+    <section class="main" id="sign-in">
+		<h2>Sign in</h2>
+		<form>
+			<p>
+				<input type="text" name="email" value="Email Address" />
+			</p>
+			<p>
+				<input type="text" name="password" value="Password" />
+			</p>
+			<p>
+				<a href="#" class="btn-register">I don't have an account</a>
+			</p>
+			<p class="buttons">
+				<button type="submit" class="button btn-green">Sign In</button>
+			</p>
+		</form>
+    </section>
+    <section class="main" id="register">
+		<h2>Let's get <strong>started!</strong></h2>
+		<form>
+			<div class="step1">
+				<p>
+					<input type="text" name="first-name" value="First Name" />
+				</p>
+				<p>
+					<input type="text" name="last-name" value="Last Name" />
+				</p>
+				<p>
+					<input type="text" name="email" value="Email Address" />
+				</p>
+				<p>
+					<input type="text" name="chair-id" value="Chair ID" />
+					<input type="text" name="password" value="Password" />
+				</p>
+				<p>
+					<a href="#" class="btn-sign-in">I already have an account</a>
+				</p>
+				<p class="buttons">
+					<button type="submit" class="button btn-green btn-submit">Sign Me Up!</button>
+				</p>
+			</div>
+		</form>
+    </section>
+    <section class="main" id="dashboard">
+
+    </section>
+</body>
+<script src="js/jquery-2.0.3.min.js"></script>
+<script src="js/socket.io.js"></script>
+<script src="js/app.js"></script>
+</html>
