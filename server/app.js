@@ -2,6 +2,15 @@ var app = require('http').createServer(handler)
   , io = require('socket.io').listen(app)
   , fs = require('fs')
   , querystring = require('querystring');
+  
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+	host : 'localhost',
+	user : 'root',
+	password : 'password',
+	database: "gitup"
+});
 
 app.listen(80);
 
@@ -42,3 +51,12 @@ io.sockets.on('connection', function (socket){
 
 
 //io.sockets.emit('chair', {type : "disconnect", isConnected : chairState.isConnected});
+
+//user/create [POST -> all fields]
+//user/edit [POST -> all fields]
+//user/details [GET -> userID or email]
+//user/activity/set [POST -> userID, isSitting]
+//user/activity/current-sitting-duration [userID]
+//user/activity/sitting-duration-per-period [userID, start, end]
+//chair/create [POST]
+//user/all-users (return all users)
